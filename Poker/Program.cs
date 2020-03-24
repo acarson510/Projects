@@ -33,7 +33,7 @@ namespace Poker
             dc.DealRiver();
 
             //bet 
-
+            Console.WriteLine();
             dc.evaluateHands();
 
 
