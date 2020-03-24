@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Integration Support</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.default.min.css" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.3.913/js/kendo.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.219/js/kendo.all.min.js"></script>
+
+</head>
+<body>    
+    <h4>Integration Support</h4>
+
+    <div id="tabstrip">
+        <ul>
+            <li id="tab1">LearnShare</li>
+            <li id="tab2">CellTrak</li>
+            <li id="tab3">Tellus</li>
+            <li id="tab4">AlayaCare</li>
+            <li id="tab5">VoterVoice</li>
+        </ul>
+        <div><div id="grid"></div></div>
+        <div><div id="grid2"></div></div>
+        <div>Tellus Grid</div>
+        <div>AlayaCare Grid</div>
+        <div>VoterVoice Grid</div>
+    </div>
+    <script src="learnShareAuditRecords.js"></script>
+    <script src="cellTrakAuditRecords.js"></script>
+
+    <script>
+        var tabstrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+
+        var grid = $("#grid").kendoGrid({
+            dataSource: {
+                data: learnShareAuditRecords,
+                schema: {
+                    model: {
+                        fields: {
+                            EntityType: { type: "string" },
+                            EntityId: { type: "string" },
+                            RequestType: { type: "string" },
+                            RequestDate: { type: "string" },
+                            //SourceData: { type: "string" },
+                            //ResponseData: { type: "string" },
+                            ResponseCode: { type: "string" },
+                            ResponseDescription: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            height: 550,
+            scrollable: true,
+            sortable: true,
+            filterable: true,
+            pageable: {
+                input: true,
+                numeric: false
+            },
+            columns: [
+                "EntityType",
+                { field: "EntityId", title: "EntityId"/*, width: "130px" */ },
+                { field: "RequestType", title: "RequestType"/*, width: "130px" */ },
+                { field: "RequestDate", title: "RequestDate"/*, width: "130px" */ },
+                //{ field: "SourceData", title: "SourceData"/*, width: "130px" */},
+                //{ field: "ResponseData", title: "ResponseData"/*, width: "130px" */},
+                { field: "ResponseCode", title: "ResponseCode"/*, width: "130px" */ },
+                { field: "ResponseDescription", title: "ResponseDescription"/*, width: "130px" */ }
+            ]
+        }).data("kendoGrid");
+
+        //apply the activate event, which is thrown only after the animation is played out
+        tabstrip.one("activate", function () {
+            grid.resize();
+        });
+
+    </script>
+    <script>
+        var tabstrip2 = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+
+        var grid2 = $("#grid2").kendoGrid({
+            dataSource: {
+                data: cellTrakAuditRecords,
+                schema: {
+                    model: {
+                        fields: {
+                            EntityType: { type: "string" },
+                            EntityId: { type: "string" },
+                            RequestType: { type: "string" },
+                            RequestDate: { type: "string" },
+                            //SourceData: { type: "string" },
+                            //ResponseData: { type: "string" },
+                            ResponseCode: { type: "string" },
+                            ResponseDescription: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            autobind: false,
+            height: 550,
+            scrollable: true,
+            sortable: true,
+            filterable: true,
+            pageable: {
+                input: true,
+                numeric: false
+            },
+            columns: [
+                "EntityType",
+                { field: "EntityId", title: "EntityId"/*, width: "130px" */ },
+                { field: "RequestType", title: "RequestType"/*, width: "130px" */ },
+                { field: "RequestDate", title: "RequestDate"/*, width: "130px" */ },
+                //{ field: "SourceData", title: "SourceData"/*, width: "130px" */},
+                //{ field: "ResponseData", title: "ResponseData"/*, width: "130px" */},
+                { field: "ResponseCode", title: "ResponseCode"/*, width: "130px" */ },
+                { field: "ResponseDescription", title: "ResponseDescription"/*, width: "130px" */ }
+            ]
+        }).data("kendoGrid");
+
+
+        //apply the activate event, which is thrown only after the animation is played out
+        tabstrip2.one("activate", function () {
+            grid2.resize();
+        });
+
+        $("#openBtn").click(function (e) {
+            tabstrip.activateTab($("#tab2"));
+        });
+    </script>
+</body>
+</html>
